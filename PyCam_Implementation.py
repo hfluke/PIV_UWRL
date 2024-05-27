@@ -5,11 +5,12 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from dask.diagnostics import ProgressBar
 
-def PyCam_Implementation(video_file):
+def PyCam_Implementation(video_file, month):
 
     camera = "cam-config-UWRL.json"
     name = video_file.split(".")[0]
-    vector_file = f"{name}_velocimetry_results.nc"
+    video_file = f"{month}/{video_file}"
+    vector_file = f"{month}/results/{name}_velocimetry_results.nc"
 
     # load camera configuration file
     cam_config = pyorc.load_camera_config(camera)
@@ -67,8 +68,4 @@ def PyCam_Implementation(video_file):
     )
     plt.title(f"{name} velocimetry results")
     
-    plt.savefig(f"{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
-
-
-
-PyCam_Implementation("waterlab1.mp4")
+    plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
