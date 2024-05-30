@@ -11,9 +11,6 @@ def PyCam_Implementation(video_file, month):
     name = video_file.split(".")[0]
     video_file = f"{month}/{video_file}"
     vector_file = f"{month}/results/{name}_velocimetry_results.nc"
-
-    # load camera configuration file
-    cam_config = pyorc.load_camera_config(camera)
     
     stabilize = [
         [2559, 1919],
@@ -24,7 +21,7 @@ def PyCam_Implementation(video_file, month):
     
     video = pyorc.Video(
         video_file,
-        camera_config=cam_config,
+        camera_config=pyorc.load_camera_config(camera),
         start_frame=0,
         end_frame=125,
         stabilize=stabilize,
@@ -67,5 +64,6 @@ def PyCam_Implementation(video_file, month):
         add_colorbar=True
     )
     plt.title(f"{name} velocimetry results")
-    
     plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
+
+    ds.close()

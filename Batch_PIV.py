@@ -1,5 +1,8 @@
 import glob
 from PyCam_Implementation import PyCam_Implementation
+# import tracemalloc # for memory tracking
+
+# tracemalloc.start()
 
 month = "February"
 
@@ -14,6 +17,8 @@ for video in total_videos:
     if video not in analyzed:
         videos.append(video)
 
+# print(tracemalloc.get_traced_memory(), '\n')
+
 for i in range(len(videos)):
     print(f"Analyzing video {i+1} of {len(videos)+1}")
     print(f"{videos[i]}")
@@ -23,5 +28,5 @@ for i in range(len(videos)):
     with open('analyzed_videos.txt', "a") as f:
         f.write(f"{videos[i]}\n")
 
+    # print('\n', tracemalloc.get_traced_memory(), '\n\n')
     print()
-    
