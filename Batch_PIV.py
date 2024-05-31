@@ -1,13 +1,7 @@
 import glob
 from PyCam_Implementation import PyCam_Implementation
-import tracemalloc # for memory tracking
-# import gc # garbage collector
-import sys
-from memory_profiler import profile
 
-@profile
 def batch():
-    tracemalloc.start()
 
     month = "February"
 
@@ -21,14 +15,10 @@ def batch():
         if video not in analyzed:
             videos.append(video)
 
-    # del analyzed
-    # gc.collect()
-
-    print(tracemalloc.get_traced_memory(), '\n')
-
-    vid_length = 2 # len(videos)
-    i = 1
+    vid_length = len(videos)
+    i = 0
     for video in videos:
+        i += 1
         print(f"Analyzing video {i} of {vid_length}")
         print(f"{video}")
 
@@ -37,18 +27,6 @@ def batch():
         with open('analyzed_videos.txt', "a") as f:
             f.write(f"{video}\n")
 
-        i += 1
-
-        # print('\n', tracemalloc.get_traced_memory())
-        # gc.collect()
-        print('\n', tracemalloc.get_traced_memory(), '\n')
-        
-        # current_vars.append(dir())
-        # print(current_vars)
-
-        # for var in current_vars:
-        #     print(f'{var}: {sys.getsizeof(var)}')
-
-        print('\n\n')
+        print()
 
 batch()

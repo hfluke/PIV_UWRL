@@ -4,9 +4,7 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from dask.diagnostics import ProgressBar
-from memory_profiler import profile
 
-@profile
 def PyCam_Implementation(video_file, month):
 
     camera = "cam-config-UWRL.json"
