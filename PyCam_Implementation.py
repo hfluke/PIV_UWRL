@@ -4,7 +4,9 @@ import xarray as xr
 import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from dask.diagnostics import ProgressBar
+from memory_profiler import profile
 
+@profile
 def PyCam_Implementation(video_file, month):
 
     camera = "cam-config-UWRL.json"
@@ -50,11 +52,9 @@ def PyCam_Implementation(video_file, month):
     video.camera_config = ds.velocimetry.camera_config
     
     ds = ds.mean(dim="time", keep_attrs=True)
-    
-    p = video.get_frames(method="rgb")[0].frames.plot(mode="camera")
 
     ds.velocimetry.plot(
-        ax=p.axes,
+        ax=video.get_frames(method="rgb")[0].frames.plot(mode="camera").axes,
         mode="camera",
         alpha=0.4,
         cmap="rainbow",
@@ -65,5 +65,7 @@ def PyCam_Implementation(video_file, month):
     )
     plt.title(f"{name} velocimetry results")
     plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
+    plt.cla()
+    plt.close() # thank you Haley
 
     ds.close()

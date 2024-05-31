@@ -1,32 +1,54 @@
 import glob
 from PyCam_Implementation import PyCam_Implementation
-# import tracemalloc # for memory tracking
+import tracemalloc # for memory tracking
+# import gc # garbage collector
+import sys
+from memory_profiler import profile
 
-# tracemalloc.start()
+@profile
+def batch():
+    tracemalloc.start()
 
-month = "February"
+    month = "February"
 
-analyzed = []
-with open('analyzed_videos.txt') as f:
-    for line in f:
-        analyzed.append(line.strip())
+    analyzed = []
+    with open('analyzed_videos.txt') as f:
+        for line in f:
+            analyzed.append(line.strip())
 
-total_videos = glob.glob("*.mp4", root_dir=f"{month}/")
-videos = []
-for video in total_videos:
-    if video not in analyzed:
-        videos.append(video)
+    videos = []
+    for video in glob.glob("*.mp4", root_dir=f"{month}/"):
+        if video not in analyzed:
+            videos.append(video)
 
-# print(tracemalloc.get_traced_memory(), '\n')
+    # del analyzed
+    # gc.collect()
 
-for i in range(len(videos)):
-    print(f"Analyzing video {i+1} of {len(videos)+1}")
-    print(f"{videos[i]}")
+    print(tracemalloc.get_traced_memory(), '\n')
 
-    PyCam_Implementation(videos[i], month)
-    
-    with open('analyzed_videos.txt', "a") as f:
-        f.write(f"{videos[i]}\n")
+    vid_length = 2 # len(videos)
+    i = 1
+    for video in videos:
+        print(f"Analyzing video {i} of {vid_length}")
+        print(f"{video}")
 
-    # print('\n', tracemalloc.get_traced_memory(), '\n\n')
-    print()
+        PyCam_Implementation(video, month)
+        
+        with open('analyzed_videos.txt', "a") as f:
+            f.write(f"{video}\n")
+
+        i += 1
+
+        # print('\n', tracemalloc.get_traced_memory())
+        # gc.collect()
+        print('\n', tracemalloc.get_traced_memory(), '\n')
+        
+        # current_vars.append(dir())
+        # print(current_vars)
+
+        # for var in current_vars:
+        #     print(f'{var}: {sys.getsizeof(var)}')
+
+        print('\n\n')
+
+batch()
