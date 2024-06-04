@@ -3,7 +3,7 @@ from PyCam_Implementation import PyCam_Implementation
 
 def batch():
 
-    months = ['January', 'February', 'March', 'Arpil', 'May']
+    months = ['January', 'February', 'March', 'April', 'May']
 
     analyzed = []
     with open('analyzed_videos.txt') as f:

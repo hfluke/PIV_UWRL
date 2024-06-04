@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from dask.diagnostics import ProgressBar
 
-MONTHS = ['January', 'February', 'March', 'Arpil', 'May']
+MONTHS = ['January', 'February', 'March', 'April', 'May']
 
 def PyCam_Implementation(video_file):
 
@@ -14,7 +14,7 @@ def PyCam_Implementation(video_file):
     name = video_file.split(".")[0]
     video_file = f"{month}/{video_file}"
     vector_file = f"{month}/results/{name}_velocimetry_results.nc"
-    
+
     stabilize = [
         [2559, 1919],
         [1752, 680],
