@@ -3,8 +3,7 @@ from PyCam_Implementation import PyCam_Implementation
 
 def batch():
 
-    # months = ['January', 'February', 'March', 'April', 'May']
-    months = ['May']
+    months = ['January', 'February', 'March', 'April', 'May']
 
     analyzed = []
     with open('analyzed_videos.txt') as f:
@@ -13,6 +12,9 @@ def batch():
     with open('hfluke.txt') as f:
         for line in f:
             analyzed.append(line.strip())
+    # with open('waterlab.txt') as f:
+    #     for line in f:
+    #         analyzed.append(line.strip())
 
     videos = []
     for month in months:
