@@ -9,12 +9,6 @@ def batch():
     with open('analyzed_videos.txt') as f:
         for line in f:
             analyzed.append(line.strip())
-    with open('hfluke.txt') as f:
-        for line in f:
-            analyzed.append(line.strip())
-    # with open('waterlab.txt') as f:
-    #     for line in f:
-    #         analyzed.append(line.strip())
 
     videos = []
     for month in months:
