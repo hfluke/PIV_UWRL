@@ -1,6 +1,7 @@
 import glob
 # from PyCam_Implementation import PyCam_Implementation
-from UWRL_sun import UWRL_sun
+# from UWRL_sun import UWRL_sun
+from UWRL_spacial_location import UWRL_spacial_location
 
 def batch():
 
@@ -24,10 +25,11 @@ def batch():
         print(f"{video}")
 
         # PyCam_Implementation(video)
-        UWRL_sun(video)
+        # UWRL_sun(video)
+        UWRL_spacial_location(video)
 
-        with open('analyzed_videos.txt', "a") as f:
-            f.write(f"{video}\n")
+        # with open('analyzed_videos.txt', "a") as f:
+        #     f.write(f"{video}\n")
 
         print()
 
