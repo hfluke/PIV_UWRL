@@ -1,11 +1,13 @@
 import glob
-from PyCam_Implementation import PyCam_Implementation
+# from PyCam_Implementation import PyCam_Implementation
+from UWRL_sun import UWRL_sun
 
 def batch():
 
     months = ['January', 'February', 'March', 'April', 'May']
 
     analyzed = []
+<<<<<<< HEAD
     with open('analyzed_videos.txt') as f:
         for line in f:
             analyzed.append(line.strip())
@@ -15,6 +17,11 @@ def batch():
     with open('waterlab.txt') as f:
         for line in f:
             analyzed.append(line.strip())
+=======
+    # with open('analyzed_videos.txt') as f:
+    #     for line in f:
+    #         analyzed.append(line.strip())
+>>>>>>> 841c8287994580e84a1f86f7347ae0d5d8af005d
 
     videos = []
     for month in months:
@@ -28,8 +35,9 @@ def batch():
         print(f"Analyzing video {i} of {vid_length}")
         print(f"{video}")
 
-        PyCam_Implementation(video)
-        
+        # PyCam_Implementation(video)
+        UWRL_sun(video)
+
         with open('analyzed_videos.txt', "a") as f:
             f.write(f"{video}\n")
 
