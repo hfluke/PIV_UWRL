@@ -2,20 +2,14 @@ import numpy as np
 import xarray as xr
 
 
-def UWRL_spacial_location(video_file):
-    name = video_file.split(".")[0]
-    vector_file = f"temp/{name}_velocimetry_results.nc"
-    vector_file2 = f"temp/{name}_velocimetry_results_1.nc"
+def UWRL_spacial_location(v):
 
-    ds = xr.open_dataset(vector_file)
+    spac_loc = spacial_location_wrapper(v['ds'].y.values)
+    spac_loc = np.broadcast_to(spac_loc, (len(v['ds'].time), len(v['ds'].y)))
 
-    spac_loc = spacial_location_wrapper(ds.y.values)
-    spac_loc = np.broadcast_to(spac_loc, (len(ds.time), len(ds.y)))
+    v['ds']['spacial_location'] = (['time', 'y'], spac_loc)
 
-    ds['spacial_location'] = (['time', 'y'], spac_loc)
-
-    ds.to_netcdf(vector_file2)
-    ds.close()
+    return v
 
 
 def spacial_location_wrapper(y_vals):

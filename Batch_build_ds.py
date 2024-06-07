@@ -2,6 +2,9 @@ import glob
 import xarray as xr
 from UWRL_sun import UWRL_sun
 from UWRL_spacial_location import UWRL_spacial_location
+from UWRL_discharge import UWRL_discharge
+from UWRL_weather import UWRL_weather
+from UWRL_vegetation import UWRL_vegetation
 
 
 def main():
@@ -13,10 +16,10 @@ def main():
         UWRL_dict['ds'] = xr.open_dataset(UWRL_dict['vector_file'])
 
         UWRL_dict = UWRL_sun(UWRL_dict)
-        # UWRL_dict['ds'] = UWRL_spacial_location(UWRL_dict)
-        # UWRL_dict['ds'] = UWRL_discharge(UWRL_dict)
-        # UWRL_dict['ds'] = UWRL_weather(UWRL_dict)
-        # UWRL_dict['ds'] = UWRL_vegatation(UWRL_dict)
+        UWRL_dict = UWRL_spacial_location(UWRL_dict)
+        UWRL_dict = UWRL_discharge(UWRL_dict)
+        UWRL_dict = UWRL_weather(UWRL_dict)
+        UWRL_dict = UWRL_vegetation(UWRL_dict)
 
         # UWRL_dict['ds'].to_netcdf(f"nc_new/{UWRL_dict['name']}_velocimetry_results.nc")
 
@@ -46,13 +49,6 @@ def make_UWRL_dict(v):
         }
     
     return UWRL_dict
-
-
-# def batch():
-#     # UWRL_sun(video)
-#     # UWRL_spacial_location(video)
-
-#     return
 
 
 main()
