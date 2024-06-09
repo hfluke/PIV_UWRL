@@ -20,7 +20,7 @@ def main():
 
         UWRL_dict = UWRL_sun(UWRL_dict)
         UWRL_dict = UWRL_spacial_location(UWRL_dict)
-        # UWRL_dict = UWRL_discharge(UWRL_dict)
+        UWRL_dict = UWRL_discharge(UWRL_dict)
         # UWRL_dict = UWRL_weather(UWRL_dict)
         # UWRL_dict = UWRL_vegetation(UWRL_dict)
 
@@ -46,7 +46,7 @@ def make_UWRL_dict(v):
         'vector_file': v,
         'name': name,
         'dt': dt,
-        'utc_dt': dt + timedelta(hours=7) # UTC-7
+        'dt_utc': dt + timedelta(hours=7) # UTC-7
     }
     
     return UWRL_dict

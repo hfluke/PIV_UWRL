@@ -8,7 +8,7 @@ def UWRL_sun(v):
     # ephem expects UTC time
     observer = ephem.Observer()
     observer.lat, observer.lon = '41.739034', '-111.795742'
-    observer.date = f"{v['utc_dt'].year}/{v['utc_dt'].month}/{v['utc_dt'].day} {v['utc_dt'].hour}:{v['utc_dt'].minute}:{v['utc_dt'].second}"
+    observer.date = f"{v['dt_utc'].year}/{v['dt_utc'].month}/{v['dt_utc'].day} {v['dt_utc'].hour}:{v['dt_utc'].minute}:{v['dt_utc'].second}"
 
     sun = ephem.Sun(observer)
 
