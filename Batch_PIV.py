@@ -8,9 +8,9 @@ def batch():
     months = ['January', 'February', 'March', 'April', 'May']
 
     analyzed = []
-    # with open('analyzed_videos.txt') as f:
-    #     for line in f:
-    #         analyzed.append(line.strip())
+    with open('analyzed_videos.txt') as f:
+        for line in f:
+            analyzed.append(line.strip())
 
     videos = []
     for month in months:
@@ -24,12 +24,10 @@ def batch():
         print(f"Analyzing video {i} of {vid_length}")
         print(f"{video}")
 
-        # PyCam_Implementation(video)
-        # UWRL_sun(video)
-        UWRL_spacial_location(video)
+        PyCam_Implementation(video)
 
-        # with open('analyzed_videos.txt', "a") as f:
-        #     f.write(f"{video}\n")
+        with open('analyzed_videos.txt', "a") as f:
+            f.write(f"{video}\n")
 
         print()
 

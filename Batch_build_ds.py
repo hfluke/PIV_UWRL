@@ -1,5 +1,6 @@
 import glob
 import xarray as xr
+from datetime import datetime, timedelta
 from UWRL_sun import UWRL_sun
 from UWRL_spacial_location import UWRL_spacial_location
 from UWRL_discharge import UWRL_discharge
@@ -10,16 +11,18 @@ from UWRL_vegetation import UWRL_vegetation
 def main():
 
     vector_files = [f for f in glob.glob('nc_old/*.nc')]
-    for vec_file in vector_files:
 
+
+    for vec_file in vector_files:
+        
         UWRL_dict = make_UWRL_dict(vec_file)
         UWRL_dict['ds'] = xr.open_dataset(UWRL_dict['vector_file'])
 
         UWRL_dict = UWRL_sun(UWRL_dict)
         UWRL_dict = UWRL_spacial_location(UWRL_dict)
-        UWRL_dict = UWRL_discharge(UWRL_dict)
-        UWRL_dict = UWRL_weather(UWRL_dict)
-        UWRL_dict = UWRL_vegetation(UWRL_dict)
+        # UWRL_dict = UWRL_discharge(UWRL_dict)
+        # UWRL_dict = UWRL_weather(UWRL_dict)
+        # UWRL_dict = UWRL_vegetation(UWRL_dict)
 
         # UWRL_dict['ds'].to_netcdf(f"nc_new/{UWRL_dict['name']}_velocimetry_results.nc")
 
@@ -37,16 +40,14 @@ def make_UWRL_dict(v):
     year, month, day = name.split('_')[2].split('-')
     hour, minute, second = name.split('_')[3].split('-')
 
+    dt = datetime(int(year), int(month), int(day), int(hour), int(minute), int(second))
+
     UWRL_dict = {
-            'vector_file': v,
-            'name': name,
-            'year': year,
-            'month': month,
-            'day': day,
-            'hour': hour,
-            'minute': minute,
-            'second': second,
-        }
+        'vector_file': v,
+        'name': name,
+        'dt': dt,
+        'utc_dt': dt + timedelta(hours=7) # UTC-7
+    }
     
     return UWRL_dict
 
