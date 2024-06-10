@@ -1,5 +1,4 @@
 import numpy as np
-import xarray as xr
 
 
 def UWRL_spacial_location(v):

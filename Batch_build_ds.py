@@ -3,7 +3,7 @@ import xarray as xr
 from datetime import datetime, timedelta
 from UWRL_sun import UWRL_sun
 from UWRL_spacial_location import UWRL_spacial_location
-from UWRL_discharge import UWRL_discharge
+from UWRL_LRO import UWRL_LRO
 from UWRL_weather import UWRL_weather
 from UWRL_vegetation import UWRL_vegetation
 
@@ -20,15 +20,20 @@ def main():
 
         UWRL_dict = UWRL_sun(UWRL_dict)
         UWRL_dict = UWRL_spacial_location(UWRL_dict)
-        UWRL_dict = UWRL_discharge(UWRL_dict)
+        UWRL_dict = UWRL_LRO(UWRL_dict)
+        UWRL_dict = UWRL_vegetation(UWRL_dict)
         # UWRL_dict = UWRL_weather(UWRL_dict)
-        # UWRL_dict = UWRL_vegetation(UWRL_dict)
 
         # UWRL_dict['ds'].to_netcdf(f"nc_new/{UWRL_dict['name']}_velocimetry_results.nc")
 
         print(UWRL_dict['ds'])
 
+        temp = UWRL_dict['ds'].to_dataframe().reset_index()
+        print(temp)
+
         UWRL_dict['ds'].close()
+
+
 
         break
         
@@ -45,8 +50,8 @@ def make_UWRL_dict(v):
     UWRL_dict = {
         'vector_file': v,
         'name': name,
-        'dt': dt,
-        'dt_utc': dt + timedelta(hours=7) # UTC-7
+        'dt': dt, # UTC-7
+        'dt_utc': dt + timedelta(hours=7)
     }
     
     return UWRL_dict

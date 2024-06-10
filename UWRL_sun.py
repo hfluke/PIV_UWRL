@@ -1,6 +1,4 @@
 import ephem
-import numpy as np
-import xarray as xr
 
 
 def UWRL_sun(v):
@@ -12,18 +10,7 @@ def UWRL_sun(v):
 
     sun = ephem.Sun(observer)
 
-    sun_altitude = xr.DataArray(
-        data=sun.alt * np.ones_like(v['ds']['time']),
-        dims=['time'],
-        coords={'time': v['ds']['time']}
-    )
-    v['ds']['sun_altitude'] = sun_altitude
-
-    sun_azimuth = xr.DataArray(
-        data=sun.az * np.ones_like(v['ds']['time']),
-        dims=['time'],
-        coords={'time': v['ds']['time']}
-    )
-    v['ds']['sun_azimuth'] = sun_azimuth
+    v['ds']['sun_altitude'] = sun.alt
+    v['ds']['sun_azimuth'] = sun.az
 
     return v
