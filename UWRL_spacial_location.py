@@ -4,9 +4,11 @@ import numpy as np
 def UWRL_spacial_location(v):
 
     spac_loc = spacial_location_wrapper(v['ds'].y.values)
-    spac_loc = np.broadcast_to(spac_loc, (len(v['ds'].time), len(v['ds'].y)))
+    # spac_loc = np.broadcast_to(spac_loc, (len(v['ds'].time), len(v['ds'].y)))
+    spac_loc = np.broadcast_to(spac_loc, (len(v['ds'].y)))
 
-    v['ds']['spacial_location'] = (['time', 'y'], spac_loc)
+    # v['ds']['spacial_location'] = (['time', 'y'], spac_loc)
+    v['ds']['spacial_location'] = (['y'], spac_loc)
 
     return v
 

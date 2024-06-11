@@ -10,6 +10,7 @@ def UWRL_sun(v):
 
     sun = ephem.Sun(observer)
 
+    # radians
     v['ds']['sun_altitude'] = sun.alt
     v['ds']['sun_azimuth'] = sun.az
 
