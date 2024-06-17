@@ -16,8 +16,8 @@ def UWRL_weather(v):
     if date in df.datetime.values:
         df = df[df.datetime == date]
 
-        v['ds']['windspeed'] = df.windspeed.values[0]
-        v['ds']['winddir'] = df.winddir.values[0]
+        # v['ds']['windspeed'] = df.windspeed.values[0]
+        # v['ds']['winddir'] = df.winddir.values[0]
         v['ds']['visibility'] = df.visibility.values[0]
         v['ds']['cloudcover'] = df.cloudcover.values[0]
         v['ds']['solarradiation'] = df.solarradiation.values[0]

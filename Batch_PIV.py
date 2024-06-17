@@ -1,11 +1,9 @@
 import glob
-# from PyCam_Implementation import PyCam_Implementation
-# from UWRL_sun import UWRL_sun
-from UWRL_spacial_location import UWRL_spacial_location
+from PyCam_Implementation import PyCam_Implementation
 
 def batch():
 
-    months = ['January', 'February', 'March', 'April', 'May']
+    months = ['January', 'February', 'March', 'April', 'May', 'June']
 
     analyzed = []
     with open('analyzed_videos.txt') as f:
