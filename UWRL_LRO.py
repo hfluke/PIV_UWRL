@@ -30,7 +30,7 @@ def UWRL_LRO(v):
     v['ds']['Chlorophyll'] = df_lab[df_lab.DateTimeUTC == date]['Chlorophyll']
     v['ds']['ODO'] = df_lab[df_lab.DateTimeUTC == date]['ODO']
     v['ds']['fDOM'] = df_lab[df_lab.DateTimeUTC == date]['fDOM']
-    v['ds']['pH'] = df_lab[df_lab.DateTimeUTC == date]['pH']
+    v['ds']['pH'] = df_lab[df_lab.DateTimeUTC == date]['pH'] # if df_lab[df_lab.DateTimeUTC == date]['pH'] < 15 else df_lab[df_lab.DateTimeUTC == date]['pH'] / 10
 
     v['ds']['LRO_discharge'] = discharge_cms
     v['ds']['LRO_discharge_site'] = site

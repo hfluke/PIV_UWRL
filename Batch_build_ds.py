@@ -1,4 +1,5 @@
 import glob
+import numpy as np
 import xarray as xr
 from datetime import datetime, timedelta
 from UWRL_sun import UWRL_sun
@@ -10,8 +11,11 @@ from UWRL_vegetation import UWRL_vegetation
 
 def main():
 
-    # vector_files = [f for f in glob.glob('nc_old/*.nc')]
-    vector_files = [f for f in glob.glob('nc_old/*video_capture_2024-01*')]
+    vector_files = [f for f in glob.glob('nc_old/*.nc')]
+    # vector_files = [f for f in glob.glob('nc_old/*video_capture_2024-01*')]
+    # vector_files.extend([f for f in glob.glob('nc_old/*video_capture_2024-02*')])
+    # vector_files.extend([f for f in glob.glob('nc_old/*video_capture_2024-03*')])
+    # vector_files.extend([f for f in glob.glob('nc_old/*video_capture_2024-04*')])
 
     for vec_file in vector_files:
         
@@ -19,22 +23,21 @@ def main():
         UWRL_dict['ds'] = xr.open_dataset(UWRL_dict['vector_file'])
 
         UWRL_dict['ds'] = UWRL_dict['ds'].mean(dim="time", keep_attrs=True)
-        
+        UWRL_dict['ds']['datetime'] = UWRL_dict['dt']
+        UWRL_dict['ds']['v_len'] = np.sqrt(UWRL_dict['ds']['v_x']**2 + UWRL_dict['ds']['v_y']**2)
+        # UWRL_dict['ds']['v_pos'] = [0 if x < 0 else 1 for x in UWRL_dict['ds']['v_x']] 
+
         UWRL_dict = UWRL_sun(UWRL_dict)
         UWRL_dict = UWRL_spacial_location(UWRL_dict)
         UWRL_dict = UWRL_LRO(UWRL_dict)
         UWRL_dict = UWRL_vegetation(UWRL_dict)
         UWRL_dict = UWRL_weather(UWRL_dict)
 
-        UWRL_dict['ds']['name'] = UWRL_dict['name']
-        UWRL_dict['ds']['month'] = UWRL_dict['dt'].month
-
         UWRL_dict['ds'].to_netcdf(f"nc_new/{UWRL_dict['name']}_velocimetry_results.nc")
-
-        # print(UWRL_dict['ds'])
-
         UWRL_dict['ds'].close()
 
+        # print(UWRL_dict['ds'])
+        # UWRL_dict['ds'].close()
         # break
         
 
