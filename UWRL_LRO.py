@@ -17,21 +17,16 @@ def UWRL_LRO(v):
     df_main = df_main[['DateTimeUTC', 'Discharge_cms']]
 
     if date in df_lab[df_lab.Discharge_cms >= 0].DateTimeUTC.values:
-        discharge_cms = df_lab[df_lab.DateTimeUTC == date].Discharge_cms.values[0]
+        discharge_cms = df_lab[df_lab.DateTimeUTC == date].Discharge_cms # .values[0]
         site = 'WaterLab'
     elif date in df_main[df_main.Discharge_cms >= 0].DateTimeUTC.values:
-        discharge_cms = df_main[df_main.DateTimeUTC == date].Discharge_cms.values[0]
+        discharge_cms = df_main[df_main.DateTimeUTC == date].Discharge_cms # .values[0]
         site = 'MainStreet'
     else:
         discharge_cms = np.nan
         site = np.nan
 
-    # v['ds']['BGA'] = df_lab[df_lab.DateTimeUTC == date]['BGA']
-    # v['ds']['Chlorophyll'] = df_lab[df_lab.DateTimeUTC == date]['Chlorophyll']
-    # v['ds']['ODO'] = df_lab[df_lab.DateTimeUTC == date]['ODO']
-    # v['ds']['fDOM'] = df_lab[df_lab.DateTimeUTC == date]['fDOM']
-    # v['ds']['pH'] = df_lab[df_lab.DateTimeUTC == date]['pH'] # if df_lab[df_lab.DateTimeUTC == date]['pH'] < 15 else df_lab[df_lab.DateTimeUTC == date]['pH'] / 10
-
+    v['ds']['turbidity'] = df_lab[df_lab.DateTimeUTC == date].TurbAvg
     v['ds']['LRO_discharge'] = discharge_cms
     v['ds']['LRO_discharge_site'] = site
 

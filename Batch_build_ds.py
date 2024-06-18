@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 from UWRL_sun import UWRL_sun
 from UWRL_spacial_location import UWRL_spacial_location
 from UWRL_LRO import UWRL_LRO
-from UWRL_weather import UWRL_weather
 from UWRL_vegetation import UWRL_vegetation
+from UWRL_weather import UWRL_weather
 
 
 def main():
