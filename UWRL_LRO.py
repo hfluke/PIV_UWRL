@@ -11,7 +11,7 @@ def UWRL_LRO(v):
     date = offset_time.strftime('%Y-%m-%d %H:%M:%S')
     
     df_lab = pd.read_csv('LR_WaterLab_AA_SourceID_1_QC_0_Year_2024.csv')
-    df_lab = df_lab[['DateTimeUTC', 'Discharge_cms', 'BGA', 'Chlorophyll', 'ODO', 'fDOM', 'pH']]
+    df_lab = df_lab[['DateTimeUTC', 'Discharge_cms', 'TurbAvg']]
 
     df_main = pd.read_csv('LR_MainStreet_BA_SourceID_1_QC_0_Year_2024.csv')
     df_main = df_main[['DateTimeUTC', 'Discharge_cms']]
