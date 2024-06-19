@@ -3,27 +3,47 @@ import numpy as np
 
 def UWRL_spacial_location(v):
 
-    spac_loc = spacial_location_wrapper(v['ds'].y.values)
-    # spac_loc = np.broadcast_to(spac_loc, (len(v['ds'].time), len(v['ds'].y)))
-    spac_loc = np.broadcast_to(spac_loc, (len(v['ds'].y)))
+    spac_loc_3 = spacial_location_wrapper(v['ds'].y.values, 3)
+    spac_loc_3 = np.broadcast_to(spac_loc_3, (len(v['ds'].y)))
 
-    # v['ds']['spacial_location'] = (['time', 'y'], spac_loc)
-    v['ds']['spacial_location'] = (['y'], spac_loc)
+    v['ds']['spacial_location_3'] = (['y'], spac_loc_3)
+
+    spac_loc_5 = spacial_location_wrapper(v['ds'].y.values, 5)
+    spac_loc_5 = np.broadcast_to(spac_loc_5, (len(v['ds'].y)))
+
+    v['ds']['spacial_location_5'] = (['y'], spac_loc_5)
 
     return v
 
 
-def spacial_location_wrapper(y_vals):
+def spacial_location_wrapper(y_vals, n):
     m = min(y_vals)
-    subdiv = ( max(y_vals) - m) / 5
+    subdiv = ( max(y_vals) - m) / n
 
     spac_loc = []
-    for y in y_vals:
-        spac_loc.append(spacial_location(y, m, subdiv))
+    if n == 3:
+        for y in y_vals:
+            spac_loc.append(spacial_location_3(y, m, subdiv))
+    elif n == 5:
+        for y in y_vals:
+            spac_loc.append(spacial_location_5(y, m, subdiv))
+    else:
+        for y in y_vals:
+            spac_loc.append(np.nan)
+    
     return spac_loc
 
 
-def spacial_location(y, m, subdiv):
+def spacial_location_3(y, m, subdiv):
+    if y < m + subdiv:
+        return 0
+    elif (y >= m + subdiv) and (y < m + 2 * subdiv):
+        return 1
+    else:
+        return 2
+
+
+def spacial_location_5(y, m, subdiv):
     if y < m + subdiv:
         return 0
     elif (y >= m + subdiv) and (y < m + 2 * subdiv):

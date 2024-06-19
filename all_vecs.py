@@ -10,12 +10,17 @@ def one():
     dfs = []
     while vector_files != []:
         n += 1; print(n)
-        dfs.append(xr.open_dataset(vector_files.pop()).to_dataframe().reset_index()[[
+        
+        df = xr.open_dataset(vector_files.pop()).to_dataframe().reset_index()[[
             'datetime', 'y', 'x', 'v_x', 'v_y', 'v_len', 's2n', 'corr',
-            'sun_altitude', 'sun_azimuth', 'spacial_location', 'LRO_discharge',
-            'LRO_discharge_site', 'turbidity', 'vegetation', 'visibility','cloudcover',
-            'solarradiation', 'uvindex', 'conditions'
-        ]])
+            'sun_altitude', 'sun_azimuth', 'spacial_location_3', 'spacial_location_5',
+            'LRO_discharge', 'LRO_discharge_site', 'turbidity', 'vegetation', 'visibility',
+            'cloudcover', 'solarradiation', 'uvindex', 'conditions'
+        ]]
+        df['v_pos'] =  [0 if pd.isna(x) else (-1 if x < 0 else 1) for x in df['v_x']]
+        df.datetime = pd.to_datetime(df.datetime)
+        
+        dfs.append(df)
     pd.concat(dfs).to_csv(f'UWRL_river_velocimetry_dataset.csv', index=False)
 
 
