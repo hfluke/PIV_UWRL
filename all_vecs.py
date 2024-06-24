@@ -13,7 +13,7 @@ def one():
         
         df = xr.open_dataset(vector_files.pop()).to_dataframe().reset_index()[[
             'datetime', 'y', 'x', 'v_x', 'v_y', 'v_len', 's2n', 'corr',
-            'sun_altitude', 'sun_azimuth', 'spacial_location_3', 'spacial_location_5',
+            'sun_altitude', 'sun_azimuth', 'spacial_location',
             'LRO_discharge', 'LRO_discharge_site', 'turbidity', 'vegetation', 'visibility',
             'cloudcover', 'solarradiation', 'uvindex', 'conditions'
         ]]

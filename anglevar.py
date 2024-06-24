@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+REPS = 100
+
 POINTS = [
     {'x': -0.13, 'y': -0.13},
     {'x': -0.13, 'y': 0},
@@ -12,15 +14,13 @@ POINTS = [
     {'x': 0.13, 'y': 0.13},
 ]
 
-df = pd.read_csv('temp_UWRL_river_velocimetry_dataset.csv')
-df.datetime = pd.to_datetime(df.datetime)
-df['angle'] = np.arctan2(df['v_y'], df['v_x'])
-# df['angle_var'] = [np.nan for _ in range(len(df))]
-
 analyzed = []
 with open('anglevar_complete.txt') as f:
     for line in f:
         analyzed.append(pd.to_datetime(line))
+
+df = pd.read_csv('temp_UWRL_river_velocimetry_dataset.csv')
+df.datetime = pd.to_datetime(df.datetime)
 
 dates = []
 for date in sorted(df.datetime.unique()):
@@ -30,9 +30,9 @@ while dates != []:
     print(f'{len(dates)} more timestamps to process')
     d = []
 
-    for _ in range(12):
+    for i in range(REPS):
         date = dates.pop(0)
-        print(date)
+        print(f'{REPS-i:>3}. {date}')
 
         df_curr = df[(df.datetime == date) & ~(df.angle.isna())]
 
@@ -40,8 +40,8 @@ while dates != []:
             xr, yr = round(row.x, 3), round(row.y, 3)
             angles = []
 
-            for point in POINTS:
-                angles.extend(df_curr.loc[(df_curr.x == xr + point['x'])&(df_curr.y == yr + point['y'])].angle.values)
+            for POINT in POINTS:
+                angles.extend(df_curr.loc[(df_curr.x == xr + POINT['x'])&(df_curr.y == yr + POINT['y'])].angle.values)
             
             if angles != []:
                 angle_diffs = []
@@ -53,7 +53,7 @@ while dates != []:
         d.append(date)
 
     print('saving to csv\n')
-    df.to_csv('temp_UWRL_river_velocimetry_dataset.csv')
+    df.to_csv('temp_UWRL_river_velocimetry_dataset.csv', index=False)
 
     with open('anglevar_complete.txt', 'a') as f:
         for date in d:

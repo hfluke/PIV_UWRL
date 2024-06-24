@@ -3,15 +3,15 @@ import numpy as np
 
 def UWRL_spacial_location(v):
 
-    spac_loc_3 = spacial_location_wrapper(v['ds'].y.values, 3)
-    spac_loc_3 = np.broadcast_to(spac_loc_3, (len(v['ds'].y)))
+    # spac_loc_3 = spacial_location_wrapper(v['ds'].y.values, 3)
+    # spac_loc_3 = np.broadcast_to(spac_loc_3, (len(v['ds'].y)))
 
-    v['ds']['spacial_location_3'] = (['y'], spac_loc_3)
+    # v['ds']['spacial_location_3'] = (['y'], spac_loc_3)
 
     spac_loc_5 = spacial_location_wrapper(v['ds'].y.values, 5)
     spac_loc_5 = np.broadcast_to(spac_loc_5, (len(v['ds'].y)))
 
-    v['ds']['spacial_location_5'] = (['y'], spac_loc_5)
+    v['ds']['spacial_location'] = (['y'], spac_loc_5)
 
     return v
 
@@ -21,10 +21,10 @@ def spacial_location_wrapper(y_vals, n):
     subdiv = ( max(y_vals) - m) / n
 
     spac_loc = []
-    if n == 3:
-        for y in y_vals:
-            spac_loc.append(spacial_location_3(y, m, subdiv))
-    elif n == 5:
+    # if n == 3:
+    #     for y in y_vals:
+    #         spac_loc.append(spacial_location_3(y, m, subdiv))
+    if n == 5:
         for y in y_vals:
             spac_loc.append(spacial_location_5(y, m, subdiv))
     else:
