@@ -13,10 +13,7 @@ def PyCam_Implementation(video_file):
     camera = "cam-config-UWRL.json"
     name = video_file.split(".")[0]
     video_file = f"{month}/{video_file}"
-    # vector_file = f"{month}/results/{name}_velocimetry_results.nc"
-    vector_file = 'nc_old/video_capture_2024-01-06_10-33-49_velocimetry_results.nc'
-    
-    print(vector_file)
+    vector_file = f"{month}/results/{name}_velocimetry_results.nc"
 
     stabilize = [
         [2559, 1919],
@@ -68,12 +65,8 @@ def PyCam_Implementation(video_file):
         add_colorbar=True
     )
     plt.title(f"{name} velocimetry results")
-    # plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
-    plt.savefig(f"nc_test_2.png", bbox_inches="tight", dpi=600)
-    plt.cla()
+    plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
+    # plt.cla()
     plt.close() # thank you Haley
 
     ds.close()
-
-
-PyCam_Implementation('video_capture_2024-01-06_10-33-49.mp4')

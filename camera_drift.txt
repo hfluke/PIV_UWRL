@@ -1,8 +1,0 @@
-# date: the date that the camera shift occurs
-# x: the number of pixels the camera has shifted horizontally compared to the original configuation
-# y: the number of pixels the camera has shifted vertically compared to the original configuation
-
-date: 
-x: 
-y: 
-

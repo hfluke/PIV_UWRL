@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-REPS = 110
+REPS = 50
 
 POINTS = [
     {'x': -1, 'y': -1},

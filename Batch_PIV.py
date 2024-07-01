@@ -12,14 +12,14 @@ def batch():
 
     videos = []
     for month in months:
-        for video in glob.glob("*.mp4", root_dir=f"{month}/"):
+        for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/")):
             video not in analyzed and videos.append(video)
 
     vid_length = len(videos)
     i = 0
     for video in videos:
         i += 1
-        print(f"Analyzing video {i} of {vid_length}")
+        print(f"Video {i} of {vid_length}")
         print(f"{video}")
 
         PyCam_Implementation(video)
