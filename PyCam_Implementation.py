@@ -66,7 +66,6 @@ def PyCam_Implementation(video_file):
     )
     plt.title(f"{name} velocimetry results")
     plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
-    # plt.cla()
     plt.close() # thank you Haley
 
     ds.close()

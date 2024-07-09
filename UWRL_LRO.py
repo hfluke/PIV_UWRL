@@ -17,10 +17,10 @@ def UWRL_LRO(v):
     df_main = df_main[['DateTimeUTC', 'Discharge_cms']]
 
     if date in df_lab[df_lab.Discharge_cms >= 0].DateTimeUTC.values:
-        discharge_cms = df_lab[df_lab.DateTimeUTC == date].Discharge_cms # .values[0]
+        discharge_cms = df_lab[df_lab.DateTimeUTC == date].Discharge_cms
         site = 'WaterLab'
     elif date in df_main[df_main.Discharge_cms >= 0].DateTimeUTC.values:
-        discharge_cms = df_main[df_main.DateTimeUTC == date].Discharge_cms # .values[0]
+        discharge_cms = df_main[df_main.DateTimeUTC == date].Discharge_cms
         site = 'MainStreet'
     else:
         discharge_cms = np.nan
