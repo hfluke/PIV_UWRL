@@ -5,14 +5,14 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from dask.diagnostics import ProgressBar
 
-MONTHS = ['January', 'February', 'March', 'April', 'May', 'June']
+MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
 def PyCam_Implementation(video_file):
 
     month = MONTHS[int(video_file.split('-')[1]) - 1]
     camera = "cam-config-UWRL.json"
     name = video_file.split(".")[0]
-    video_file = f"{month}/{video_file}"
+    video_file = f"{month}/videos/{video_file}"
     vector_file = f"{month}/results/{name}_velocimetry_results.nc"
 
     stabilize = [

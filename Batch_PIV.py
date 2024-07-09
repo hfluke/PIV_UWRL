@@ -3,7 +3,20 @@ from PyCam_Implementation import PyCam_Implementation
 
 def batch():
 
-    months = ['January', 'February', 'March', 'April', 'May', 'June']
+    MONTHS = [
+        # 'January',
+        # 'February',
+        # 'March',
+        # 'April',
+        # 'May',
+        # 'June',
+        'July',
+        # 'August',
+        # 'September',
+        # 'October',
+        # 'November',
+        # 'December'
+    ]
 
     analyzed = []
     with open('analyzed_videos.txt') as f:
@@ -11,8 +24,8 @@ def batch():
             analyzed.append(line.strip())
 
     videos = []
-    for month in months:
-        for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/")):
+    for month in MONTHS:
+        for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
             video not in analyzed and videos.append(video)
 
     vid_length = len(videos)
