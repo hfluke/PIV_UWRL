@@ -1,0 +1,8 @@
+video name: video_capture_2024-01-01_07-51-43.mp4
+                original AOI area: 197.47000000000008
+                original AOI time: 0:07:04.881031
+                new AOI area: 157.88360000000006
+                new AOI time: 0:05:38.199300
+                original to new area ratio: 1.250731551598773
+                original to new time ratio: 1.2563036972578003
+
