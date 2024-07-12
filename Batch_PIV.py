@@ -33,9 +33,12 @@ def batch():
             # video not in analyzed and videos.append(video)
             videos.append(video)
     
-    videos = videos[::37][len(analyzed):]
+    videos1 = []
+    for video in videos[::37]:
+        video not in analyzed and videos1.append(video)
+    videos = videos1[:]
 
-    # return
+    # videos = ['video_capture_2024-07-01_12-22-37.mp4']
 
     vid_length = len(videos)
     i = 0

@@ -167,12 +167,11 @@ def corners(month):
             [475, 1125]
         ]
     elif month == 'May':
-        # default; May vectors inconsistent
         corners = [
-            [2559, 1919],
+            [2500, 1000],
             [1752, 680],
             [940, 680],
-            [200, 1919]
+            [500, 1000]
         ]
     elif month == 'June':
         corners = [
@@ -182,15 +181,14 @@ def corners(month):
             [0,1750]
         ]
     elif month == 'July':
-        # default; July vectors inconsistent
         corners = [
-            [2559, 1919],
-            [1752, 680],
-            [940, 680],
-            [200, 1919]
+            [2375, 975],
+            [1925, 750],
+            [875, 750],
+            [525, 975]
         ]
     else:
-        # default; July vectors inconsistent
+        # default
         corners = [
             [2559, 1919],
             [1752, 680],

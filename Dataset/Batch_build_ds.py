@@ -11,7 +11,9 @@ from UWRL_weather import UWRL_weather
 
 def main():
 
-    vector_files = [f for f in glob.glob('nc_old/*.nc')]
+    # vector_files = [f for f in glob.glob('nc_old/*.nc')]
+    # vector_files = [f for f in glob.glob('../AOI/old/*.nc')]
+    vector_files = ['../July/results/video_capture_2024-07-01_12-22-37_velocimetry_results_bounded.nc']
 
     for vec_file in vector_files:
         
@@ -28,7 +30,9 @@ def main():
         UWRL_dict = UWRL_vegetation(UWRL_dict)
         UWRL_dict = UWRL_weather(UWRL_dict)
 
-        UWRL_dict['ds'].to_netcdf(f"nc_new/{UWRL_dict['name']}_velocimetry_results.nc")
+        # UWRL_dict['ds'].to_netcdf(f"nc_new/{UWRL_dict['name']}_velocimetry_results.nc")
+        # UWRL_dict['ds'].to_netcdf(f"../AOI/new/{UWRL_dict['name']}_velocimetry_results.nc")
+        UWRL_dict['ds'].to_netcdf(f"../radar/video_capture_2024-07-01_12-22-37_velocimetry_results_bounded.nc")
         UWRL_dict['ds'].close()
 
         # print(UWRL_dict['ds'])
