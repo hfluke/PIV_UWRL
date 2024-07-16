@@ -5,6 +5,7 @@ import pandas as pd
 
 def one():
     vector_files = [f for f in glob.glob('nc_new/*.nc')]
+    # vector_files = [f for f in glob.glob('Mask/new/*.nc')]
 
     n = 0
     dfs = []
@@ -12,7 +13,7 @@ def one():
         n += 1; print(n)
         
         df = xr.open_dataset(vector_files.pop()).to_dataframe().reset_index()[[
-            'datetime', 'y', 'x', 'v_x', 'v_y', 'v_len', 's2n', 'corr',
+            'datetime', 'x', 'y', 'v_x', 'v_y', 'v_len', 's2n', 'corr',
             'sun_altitude', 'sun_azimuth', 'spacial_location',
             'LRO_discharge', 'LRO_discharge_site', 'turbidity', 'vegetation', 'visibility',
             'cloudcover', 'solarradiation', 'uvindex', 'conditions'
@@ -21,7 +22,8 @@ def one():
         df.datetime = pd.to_datetime(df.datetime)
         
         dfs.append(df)
-    pd.concat(dfs).to_csv(f'UWRL_river_velocimetry_dataset.csv', index=False)
+    # pd.concat(dfs).to_csv(f'UWRL_river_velocimetry_dataset.csv', index=False)
+    pd.concat(dfs).to_csv(f'Mask/dataset_og.csv', index=False)
 
 
 def two():
@@ -32,5 +34,5 @@ def two():
     pd.concat(dfs).to_csv(f'Weather/Weather.csv', index=False)
 
 
-# one()
-two()
+one()
+# two()

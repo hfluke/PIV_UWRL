@@ -17,7 +17,7 @@ def PyCam_Implementation(video_file):
     camera = "cam-config-UWRL.json"
     name = video_file.split(".")[0]
     video_file = f"{month}/videos/{video_file}"
-    vector_file = f"{month}/results/{name}_velocimetry_results2.nc"
+    vector_file = f"{month}/results/{name}_velocimetry_results.nc"
 
     stabilize = [
         [2559, 1919],
@@ -71,12 +71,12 @@ def PyCam_Implementation(video_file):
         add_colorbar=True
     )
     plt.title(f"{name} velocimetry results")
-    plt.savefig(f"{month}/results/{name}_velocimetry_results2.png", bbox_inches="tight", dpi=600)
+    plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
     plt.close() # thank you Haley
 
     ds.close()
 
-    return cam_config.bbox.area
+    # return cam_config.bbox.area
 
 
 def PyCam_Implementation2(video_file):
@@ -197,3 +197,44 @@ def corners(month):
         ]
     
     return corners
+
+
+def filter_explore(video_file):
+
+    month = MONTHS[int(video_file.split('-')[1]) - 1]
+    # camera = "cam-config-UWRL.json"
+    name = video_file.split(".")[0]
+    video_file = f"{month}/videos/{video_file}"
+    vector_file = f"{month}/results/{name}_velocimetry_results.nc"
+
+    ds = xr.open_dataset(vector_file)
+
+    # ds.velocimetry.mask.corr(inplace=True)
+    # ds.velocimetry.mask.minmax(inplace=True)
+    # ds.velocimetry.mask.rolling(inplace=True)
+    # ds.velocimetry.mask.outliers(inplace=True)
+    # ds.velocimetry.mask.variance(inplace=True)
+    # ds.velocimetry.mask.angle(angle_tolerance=0.5*np.pi)
+    # ds.velocimetry.mask.count(inplace=True)
+    # ds.velocimetry.mask.window_mean(wdw=2, inplace=True, tolerance=0.5, reduce_time=True)
+
+    video = pyorc.Video(video_file, start_frame=0, end_frame=125)
+    video.camera_config = ds.velocimetry.camera_config
+    
+    ds = ds.mean(dim="time", keep_attrs=True)
+
+    ds.velocimetry.plot(
+        ax=video.get_frames(method="rgb")[0].frames.plot(mode="camera").axes,
+        mode="camera",
+        alpha=0.4,
+        cmap="rainbow",
+        scale=200,
+        width=0.0015,
+        norm=Normalize(vmin=0., vmax=1.0, clip=False),
+        add_colorbar=True
+    )
+    # plt.title(f"{name} velocimetry results")
+    plt.savefig(f"Mask/photos/{name}_velocimetry_results_no_mask.png", bbox_inches="tight", dpi=600)
+    plt.close() # thank you Haley
+
+    ds.close()
