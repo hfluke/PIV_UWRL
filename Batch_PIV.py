@@ -27,10 +27,11 @@ def batch():
             analyzed.append(line.strip())
 
     videos = []
-    # for month in MONTHS[::-1]:
-        # for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
-    for video in sorted(glob.glob("*.mp4", root_dir="CLAHE/videos/")):
-        video not in analyzed and videos.append(video)
+    for month in MONTHS: # MONTHS[::-1]:
+        for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
+            video not in analyzed and videos.append(video)
+    # for video in sorted(glob.glob("*.mp4", root_dir="CLAHE/videos/")):
+        # video not in analyzed and videos.append(video)
 
     # preprocessing videos
     # videos = [
@@ -49,6 +50,12 @@ def batch():
     #     # 'video_capture_2024-06-04_13-06-48.mp4'
     #     'video_capture_2024-07-17_14-30-04.mp4'
     # ]
+
+    # videos = [
+    #     'video_capture_2024-07-01_09-08-21_highpass6.mp4'
+    # ]
+
+    # for v in videos: print(v); print()
 
     vid_length = len(videos)
     i = 0

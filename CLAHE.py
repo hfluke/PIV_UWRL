@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 def apply_clahe(frame, clahe):
 
@@ -37,6 +37,82 @@ def alter_video(video, clip_lim, tile_size):
 
         # apply clahe
         new_frame = apply_clahe(frame, clahe)
+
+        # Write the frame to the output video
+        out.write(new_frame)
+
+    # Release everything
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
+
+    with open('clahe_vids.txt', 'a') as f:
+        f.write(f'{output_video_path}\n')
+
+
+def alter_video2(video, lower, upper):
+
+    # video in format month/videos/name.mp4
+    name = video.split('/')[-1].split('.')[0]
+
+    cap = cv2.VideoCapture(video)
+
+    # Get video properties
+    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fps = int(cap.get(cv2.CAP_PROP_FPS))
+
+    # Define the codec and create VideoWriter object
+    output_video_path = f'CLAHE/videos/{name}#canny_lower={lower}#canny_upper={upper}.mp4'
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(output_video_path, fourcc, fps, (frame_width, frame_height))
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        frame = cv2.Canny(frame, lower, upper)
+        new_frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR) # Convert back to BGR color space
+
+        # Write the frame to the output video
+        out.write(new_frame)
+
+    # Release everything
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
+
+    with open('clahe_vids.txt', 'a') as f:
+        f.write(f'{output_video_path}\n')
+
+
+def alter_video3(video, lower, upper):
+
+    # video in format month/videos/name.mp4
+    name = video.split('/')[-1].split('.')[0]
+
+    cap = cv2.VideoCapture(video)
+
+    # Get video properties
+    frame_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fps = int(cap.get(cv2.CAP_PROP_FPS))
+
+    # Define the codec and create VideoWriter object
+    output_video_path = f'CLAHE/videos/{name}#lower_thresh={lower}#upper_thresh={upper}.mp4'
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(output_video_path, fourcc, fps, (frame_width, frame_height))
+
+    while cap.isOpened():
+        ret, frame = cap.read()
+        if not ret:
+            break
+
+        # Modify the image using np.where
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        frame = np.where(frame < lower, 0, np.where(frame > upper, 255, frame))
+        new_frame = cv2.cvtColor(frame, cv2.COLOR_GRAY2BGR) # Convert back to BGR color space
 
         # Write the frame to the output video
         out.write(new_frame)

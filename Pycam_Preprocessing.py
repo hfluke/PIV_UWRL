@@ -71,10 +71,10 @@ def PyCam_Implementation(video_name):
 
     da = video.get_frames()
 
-    # da = da.frames.minmax(min=id['min'], max=id['max'])
+    da = da.frames.minmax(min=id['min'], max=id['max'])
     # da = da.frames.normalize(samples=id['normalize'])
-    da = da.frames.smooth(wdw=id['smooth'])
-    da = da.frames.time_diff(thres=id['thres'], abs=bool(id['abs']))
+    # da = da.frames.smooth(wdw=id['smooth'])
+    # da = da.frames.time_diff(thres=id['thres'], abs=bool(id['abs']))
     # da = da.frames.edge_detect(wdw_1=id['wdw1'], wdw_2=id['wdw2'])
     
     da = da.frames.project()
@@ -109,7 +109,8 @@ def PyCam_Implementation(video_name):
         norm=Normalize(vmin=0., vmax=1.0, clip=False),
         add_colorbar=True
     )
-    plt.savefig(f"Preprocessing/results/{video_name}.png", bbox_inches="tight", dpi=600)
+    # plt.savefig(f"Preprocessing/results/{video_name}.png", bbox_inches="tight", dpi=600)
+    plt.savefig(f"CLAHE/results/{name}.png", bbox_inches="tight", dpi=600)
     plt.close() # thank you Haley
 
     ds.close()

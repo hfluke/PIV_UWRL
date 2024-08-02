@@ -13,14 +13,13 @@ MONTHS = [
 
 def PyCam_Implementation(video_file):
 
-    # month = MONTHS[int(video_file.split('-')[1]) - 1]
+    month = MONTHS[int(video_file.split('-')[1]) - 1]
     camera = "cam-config-UWRL.json"
-    # name = video_file.split(".")[0]
     name = video_file.rsplit(".", maxsplit=1)[0]
-    # video_file = f"{month}/videos/{video_file}"
-    # vector_file = f"{month}/results/{name}_velocimetry_results.nc"
-    video_file = f"CLAHE/videos/{video_file}"
-    vector_file = f"CLAHE/results/{name}.nc"
+    video_file = f"{month}/videos/{video_file}"
+    vector_file = f"{month}/results/{name}_velocimetry_results.nc"
+    # video_file = f"CLAHE/videos/{video_file}"
+    # vector_file = f"CLAHE/results/{name}.nc"
 
     stabilize = [
         [2559, 1919],
@@ -73,9 +72,10 @@ def PyCam_Implementation(video_file):
         norm=Normalize(vmin=0., vmax=1.0, clip=False),
         add_colorbar=True
     )
-    # plt.title(f"{name} velocimetry results")
-    # plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
-    plt.savefig(f"CLAHE/results/{name}.png", bbox_inches="tight", dpi=600)
+    plt.title(f"{name} velocimetry results")
+    plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
+    # plt.savefig(f"{month}/results/{name}.png", bbox_inches="tight", dpi=600)
+    # plt.savefig(f"CLAHE/results/{name}.png", bbox_inches="tight", dpi=600)
     plt.close() # thank you Haley
 
     ds.close()
