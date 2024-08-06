@@ -55,6 +55,8 @@ def batch():
     #     'video_capture_2024-07-01_09-08-21_highpass6.mp4'
     # ]
 
+    videos = ['video_capture_2024-06-02_13-56-10.mp4']
+
     # for v in videos: print(v); print()
 
     vid_length = len(videos)

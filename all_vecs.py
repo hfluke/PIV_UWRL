@@ -25,14 +25,4 @@ def one():
     # pd.concat(dfs).to_csv(f'UWRL_river_velocimetry_dataset.csv', index=False)
     pd.concat(dfs).to_csv(f'Mask/dataset_og.csv', index=False)
 
-
-def two():
-    files = ['January_weather.csv', 'February_weather.csv', 'March_weather.csv', 'April_weather.csv', 'May_weather.csv', 'June_weather.csv', 'July_weather.csv']
-    dfs = []
-    for file in files:
-        dfs.append(pd.read_csv(f'Weather/{file}'))
-    pd.concat(dfs).to_csv(f'Weather/Weather.csv', index=False)
-
-
 one()
-# two()
