@@ -102,28 +102,4 @@ def batch():
         print()
 
 
-import cv2
-def check():
-
-    files = []
-    for month in ['July']:
-        for file in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
-            files.append({
-                    'file': f"{month}/results/{file.split('.')[0]}_velocimetry_results.nc",
-                    'img': f"{month}/results/{file.split('.')[0]}_velocimetry_results.png"
-                })
-
-    for file in files:
-        print(file)
-
-        ds = xr.open_dataset(file['file'])
-        ds = ds.mean(dim="time", keep_attrs=True)
-        ds.close()
-
-        cv2.imread(file['img'])
-
-
-
 batch()
-# check()
-

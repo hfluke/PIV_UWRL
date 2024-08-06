@@ -5,6 +5,7 @@ import numpy as np
 MAJOR = 24 * np.pi / 180
 MINOR = 12 * np.pi / 180
 
+
 def main():
     if len(sys.argv) < 2:
         print('please specify a height')
