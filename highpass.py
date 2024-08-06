@@ -119,8 +119,5 @@ def alter_video(video):
     out.release()
     cv2.destroyAllWindows()
 
-    with open('highpass_vids.txt', 'a') as f:
-        f.write(f'{output_video_path}\n')
-
 
 alter_video('July/videos/video_capture_2024-07-01_09-08-21.mp4')

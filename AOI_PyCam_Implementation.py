@@ -1,4 +1,3 @@
-import glob
 import pyorc
 import numpy as np
 import xarray as xr
@@ -6,20 +5,25 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from dask.diagnostics import ProgressBar
 
-
 MONTHS = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
 ]
 
 
-def PyCam_Implementation(video_file):
+def PyCam_Implementation2(video_file):
 
     month = MONTHS[int(video_file.split('-')[1]) - 1]
     camera = "cam-config-UWRL.json"
-    name = video_file.rsplit(".", maxsplit=1)[0]
+    name = video_file.split(".")[0]
     video_file = f"{month}/videos/{video_file}"
-    vector_file = f"{month}/results/{name}_velocimetry_results.nc"
+    vector_file = f"{month}/results/{name}_velocimetry_results_bounded.nc"
+
+    # this is to check if processing videos with smaller aoi area is faster/better results
+    cam_config = pyorc.load_camera_config(camera)
+    cam_config.set_bbox_from_corners(corners(month))
+
+    # return
 
     stabilize = [
         [2559, 1919],
@@ -27,16 +31,14 @@ def PyCam_Implementation(video_file):
         [940, 680],
         [200, 1919]
     ]
-
-    cam_config = pyorc.load_camera_config(camera)
-
+    
     video = pyorc.Video(
         video_file,
         camera_config=cam_config,
         start_frame=0,
         end_frame=125,
         stabilize=stabilize,
-        h_a=0.
+        h_a=0. # water level must be of type float
     )
 
     da = video.get_frames()
@@ -73,57 +75,57 @@ def PyCam_Implementation(video_file):
         add_colorbar=True
     )
     plt.title(f"{name} velocimetry results")
-    plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
-    plt.close()
+    plt.savefig(f"{month}/results/{name}_velocimetry_results_bounded.png", bbox_inches="tight", dpi=600)
+    plt.close() # thank you Haley
+
     ds.close()
 
-
-def batch():
-
-    analyzed = []
-    for month in MONTHS:
-        for image in sorted(glob.glob("*.png", root_dir=f"{month}/results/")):
-            analyzed.append(f"{image.rsplit('_', maxsplit=2)[0]}.mp4")
-
-    videos = []
-    for month in MONTHS:
-        for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
-            video not in analyzed and videos.append(video)
-
-    vid_length = len(videos)
-    i = 0
-    for video in videos:
-        i += 1
-        print(f"Video {i} of {vid_length}")
-        print(f"{video}")
-
-        PyCam_Implementation(video)
-
-        print()
+    return cam_config.bbox.area
 
 
-import cv2
-def check():
-
-    files = []
-    for month in ['July']:
-        for file in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
-            files.append({
-                    'file': f"{month}/results/{file.split('.')[0]}_velocimetry_results.nc",
-                    'img': f"{month}/results/{file.split('.')[0]}_velocimetry_results.png"
-                })
-
-    for file in files:
-        print(file)
-
-        ds = xr.open_dataset(file['file'])
-        ds = ds.mean(dim="time", keep_attrs=True)
-        ds.close()
-
-        cv2.imread(file['img'])
-
-
-
-batch()
-# check()
-
+def corners(month):
+    if month in ['January', 'February', 'March']:
+        corners = [
+            [2375, 1100],
+            [1752, 680],
+            [940, 680],
+            [475, 1100]
+        ]
+    elif month == 'April':
+        corners = [
+            [2475, 1125],
+            [1752, 680],
+            [940, 680],
+            [475, 1125]
+        ]
+    elif month == 'May':
+        corners = [
+            [2500, 1000],
+            [1752, 680],
+            [940, 680],
+            [500, 1000]
+        ]
+    elif month == 'June':
+        corners = [
+            [2550, 1750],
+            [2550, 1250],
+            [350, 1250],
+            [0,1750]
+        ]
+    elif month == 'July':
+        corners = [
+            [2375, 975],
+            [1925, 750],
+            [875, 750],
+            [525, 975]
+        ]
+    else:
+        # default
+        corners = [
+            [2559, 1919],
+            [1752, 680],
+            [940, 680],
+            [200, 1919]
+        ]
+    
+    return corners
