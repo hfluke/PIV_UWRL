@@ -65,6 +65,8 @@ def apply_Lap(frame):
     laplacian = cv2.Laplacian(gray_image, cv2.CV_64F, ksize=3)
     new_frame = cv2.convertScaleAbs(laplacian)
 
+    new_frame = cv2.cvtColor(new_frame, cv2.COLOR_GRAY2BGR)
+
     return new_frame
 
 
@@ -97,7 +99,8 @@ def alter_video(video):
     fps = int(cap.get(cv2.CAP_PROP_FPS))
 
     # Define the codec and create VideoWriter object
-    output_video_path = f'July/videos/{name}_highpass6.mp4'
+    # output_video_path = f'Preproc_and_CLAHE/videos/{name}_sobel_lab.mp4'
+    output_video_path = f'Preproc_and_CLAHE/videos/{name}_highpass_v2.mp4'
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(output_video_path, fourcc, fps, (frame_width, frame_height))
 
@@ -106,7 +109,7 @@ def alter_video(video):
         if not ret:
             break
 
-        frame = cv2.convertScaleAbs(frame, alpha=2, beta=-150)
+        # frame = cv2.convertScaleAbs(frame, alpha=2, beta=-150)
 
         # apply clahe
         new_frame = apply_Canny(frame)

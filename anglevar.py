@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-REPS = 50
+REPS = 100
 
 POINTS = [
     {'x': -1, 'y': -1},
@@ -19,7 +19,7 @@ with open('anglevar_complete.txt') as f:
     for line in f:
         analyzed.append(pd.to_datetime(line))
 
-df = pd.read_csv('temp2_UWRL_river_velocimetry_dataset.csv')
+df = pd.read_csv('UWRL_river_velocimetry_dataset_angle_variance.csv')
 df.datetime = pd.to_datetime(df.datetime)
 
 dates = []
@@ -63,7 +63,7 @@ while dates != []:
         d.append(date)
 
     print('saving to csv\n')
-    df.to_csv('temp2_UWRL_river_velocimetry_dataset.csv', index=False)
+    df.to_csv('UWRL_river_velocimetry_dataset_angle_variance.csv', index=False)
 
     with open('anglevar_complete.txt', 'a') as f:
         for date in d:

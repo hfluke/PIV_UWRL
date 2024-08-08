@@ -55,10 +55,5 @@ def rotate_translate_point(point, theta):
     return new_point
 
 
-
-
-
-
-
 if __name__ == '__main__':
     main()

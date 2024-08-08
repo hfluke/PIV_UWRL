@@ -1,3 +1,4 @@
+import os
 import glob
 import numpy as np
 import pandas as pd
@@ -18,18 +19,25 @@ MONTHS = [
 
 def main():
 
-    build_individual()
+    build_sets()
     build_csv()
 
 
-def build_individual():
+def build_sets():
 
     vector_files = []
     for month in MONTHS:
         for file in sorted(glob.glob("*.nc", root_dir=f"{month}/results/")):
             vector_files.append(f"{month}/results/{file}")
 
+    i = 0
+    length = len(vector_files)
     for vec_file in vector_files:
+
+        i += 1
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(f" Building individual datasets: {i/length:.2%} complete")
+
         
         UWRL_dict = make_UWRL_dict(vec_file)
         UWRL_dict['ds'] = xr.open_dataset(UWRL_dict['vector_file'])
@@ -73,10 +81,14 @@ def make_UWRL_dict(v):
 def build_csv():
     vector_files = [f for f in glob.glob('nc_new/*.nc')]
 
-    n = 0
+    i = 0
+    length = len(vector_files)
     dfs = []
     while vector_files != []:
-        n += 1; print(n)
+        
+        i += 1
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print(f" Building .csv file: {i/length:.2%} complete")
         
         df = xr.open_dataset(vector_files.pop()).to_dataframe().reset_index()[[
             'datetime', 'x', 'y', 'v_x', 'v_y', 'velocity', 's2n', 'corr',
@@ -84,11 +96,11 @@ def build_csv():
             'LRO_discharge', 'LRO_discharge_site', 'turbidity', 'vegetation', 'visibility',
             'cloudcover', 'solarradiation', 'uvindex', 'conditions'
         ]]
-        df['v_pos'] =  [0 if pd.isna(x) else (-1 if x < 0 else 1) for x in df['v_x']]
+        df['angle'] = np.arctan2(df['v_y'], df['v_x'])
         df.datetime = pd.to_datetime(df.datetime)
         
         dfs.append(df)
-    pd.concat(dfs).to_csv(f'trash_UWRL_river_velocimetry_dataset.csv', index=False)
+    pd.concat(dfs).to_csv(f'trash2_UWRL_river_velocimetry_dataset.csv', index=False)
 
 
 main()
