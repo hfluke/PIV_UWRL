@@ -15,14 +15,11 @@ MONTHS = [
 
 def PyCam_Implementation(video_file):
 
-    # month = MONTHS[int(video_file.split('-')[1]) - 1]
+    month = MONTHS[int(video_file.split('-')[1]) - 1]
     camera = "cam-config-UWRL.json"
-    # name = video_file.rsplit(".", maxsplit=1)[0]
-    # video_file = f"{month}/videos/{video_file}"
-    # vector_file = f"{month}/results/{name}_velocimetry_results.nc"
     name = video_file.rsplit(".", maxsplit=1)[0]
-    video_file = f"Video_Preprocessing/videos/{video_file}"
-    vector_file = f"Video_Preprocessing/results/{name}.nc"
+    video_file = f"{month}/videos/{video_file}"
+    vector_file = f"{month}/results/{name}_velocimetry_results.nc"
 
     stabilize = [
         [2559, 1919],
@@ -75,9 +72,8 @@ def PyCam_Implementation(video_file):
         norm=Normalize(vmin=0., vmax=1.0, clip=False),
         add_colorbar=True
     )
-    # plt.title(f"{name} velocimetry results")
-    # plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
-    plt.savefig(f"Video_Preprocessing/results/{name}.png", bbox_inches="tight", dpi=600)
+    plt.title(f"{name} velocimetry results")
+    plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
     plt.close()
     ds.close()
 
@@ -85,20 +81,14 @@ def PyCam_Implementation(video_file):
 def batch():
 
     analyzed = []
-    # for month in MONTHS:
-    #     for image in sorted(glob.glob("*.png", root_dir=f"{month}/results/")):
-    #         analyzed.append(f"{image.rsplit('_', maxsplit=2)[0]}.mp4")
-    for image in sorted(glob.glob("*.png", root_dir=f"Video_Preprocessing/results/")):
-        analyzed.append(f"{image.rsplit('.', maxsplit=1)[0]}.mp4")
-
-    # print(analyzed[0])
+    for month in MONTHS:
+        for image in sorted(glob.glob("*.png", root_dir=f"{month}/results/")):
+            analyzed.append(f"{image.rsplit('_', maxsplit=2)[0]}.mp4")
 
     videos = []
-    # for month in MONTHS:
-    #     for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
-    #         video not in analyzed and videos.append(video)
-    for video in sorted(glob.glob("*.mp4", root_dir=f"Video_Preprocessing/videos/")):
-        video not in analyzed and videos.append(video)
+    for month in MONTHS:
+        for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
+            video not in analyzed and videos.append(video)
 
     vid_length = len(videos)
     i = 0
