@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from dask.diagnostics import ProgressBar
 
+import Radar
+
 
 MONTHS = [
     'January', 'February', 'March', 'April', 'May', 'June',

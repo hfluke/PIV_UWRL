@@ -4,3 +4,4 @@
 *.csv
 *.jpg
 *.jpeg
+__pycache__/
