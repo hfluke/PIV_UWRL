@@ -1,11 +1,19 @@
 import numpy as np
 
 class Radar:
-    
 
     def __init__(self, height=3.689, theta=45):
         self.MAJOR = 24*np.pi/180
         self.MINOR = 12*np.pi/180
+# 
+        # self.cam_k = 8.973 # 9.416
+        # # self.cam_h = 4.122 # 2.321
+
+        # self.cam_k = 4.122 # these points would (probably) be 
+        # self.cam_h = 8.973 # correct before the new transformation
+
+        self.cam_k = 0 
+        self.cam_h = 9.592
 
         self.height = height
         self.theta = -theta*np.pi/180
@@ -29,4 +37,4 @@ class Radar:
 
 
     def filter_point(self, x, y):
-        return x**2 / self.a**2 + (y - self.k)**2 / self.b**2 <= 1
+        return (x - self.cam_h)**2 / self.a**2 + (y - self.cam_k - self.k)**2 / self.b**2 <= 1

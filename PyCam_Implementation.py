@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import Normalize
 from dask.diagnostics import ProgressBar
 
-import Radar
+from Radar import Radar
 
 
 MONTHS = [
@@ -17,11 +17,19 @@ MONTHS = [
 
 def PyCam_Implementation(video_file):
 
-    month = MONTHS[int(video_file.split('-')[1]) - 1]
-    camera = "cam-config-UWRL.json"
+    # month = MONTHS[int(video_file.split('-')[1]) - 1]
+    # camera = "cam-config-UWRL.json"
+    # name = video_file.rsplit(".", maxsplit=1)[0]
+    # video_file = f"{month}/videos/{video_file}"
+    # vector_file = f"{month}/results/{name}_velocimetry_results.nc"
+    
+    titlestr = "_results13"
+
+    camera = "eighth-cam-config-UWRL.json"
     name = video_file.rsplit(".", maxsplit=1)[0]
-    video_file = f"{month}/videos/{video_file}"
-    vector_file = f"{month}/results/{name}_velocimetry_results.nc"
+    video_file = f"Videos/{video_file}"
+    vector_file = f"Videos/{name}{titlestr}.nc"
+
 
     stabilize = [
         [2559, 1919],
@@ -48,6 +56,8 @@ def PyCam_Implementation(video_file):
     with ProgressBar():
         piv.compute()
 
+    radar = Radar()
+
     ds = xr.open_dataset(vector_file)
 
     ds.velocimetry.mask.corr(inplace=True)
@@ -62,6 +72,7 @@ def PyCam_Implementation(video_file):
     video = pyorc.Video(video_file, start_frame=0, end_frame=125)
     video.camera_config = ds.velocimetry.camera_config
     
+    ds = ds.where(radar.filter_point(ds.xs, ds.ys)) # TODO: does this need to be transformed?
     ds = ds.mean(dim="time", keep_attrs=True)
 
     ds.velocimetry.plot(
@@ -74,23 +85,26 @@ def PyCam_Implementation(video_file):
         norm=Normalize(vmin=0., vmax=1.0, clip=False),
         add_colorbar=True
     )
-    plt.title(f"{name} velocimetry results")
-    plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
+    # plt.title(f"{name} velocimetry results")
+    # plt.savefig(f"{month}/results/{name}_velocimetry_results.png", bbox_inches="tight", dpi=600)
+    plt.savefig(f"Videos/{name}{titlestr}.png", bbox_inches="tight", dpi=600)
     plt.close()
     ds.close()
 
 
 def batch():
 
-    analyzed = []
-    for month in MONTHS:
-        for image in sorted(glob.glob("*.png", root_dir=f"{month}/results/")):
-            analyzed.append(f"{image.rsplit('_', maxsplit=2)[0]}.mp4")
+    # analyzed = []
+    # for month in MONTHS:
+    #     for image in sorted(glob.glob("*.png", root_dir=f"{month}/results/")):
+    #         analyzed.append(f"{image.rsplit('_', maxsplit=2)[0]}.mp4")
 
-    videos = []
-    for month in MONTHS:
-        for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
-            video not in analyzed and videos.append(video)
+    # videos = []
+    # for month in MONTHS:
+    #     for video in sorted(glob.glob("*.mp4", root_dir=f"{month}/videos/")):
+    #         video not in analyzed and videos.append(video)
+
+    videos = ["video_capture_2024-09-12_13-00-08.mp4"]
 
     vid_length = len(videos)
     i = 0
