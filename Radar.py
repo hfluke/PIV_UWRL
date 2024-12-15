@@ -7,13 +7,13 @@ class Radar:
         self.MINOR = 12*np.pi/180
 # 
         # self.cam_k = 8.973 # 9.416
-        # # self.cam_h = 4.122 # 2.321
+        # self.cam_h = 4.122 # 2.321
 
         # self.cam_k = 4.122 # these points would (probably) be 
         # self.cam_h = 8.973 # correct before the new transformation
 
         self.cam_k = 0 
-        self.cam_h = 9.592
+        self.cam_h = 9.928
 
         self.height = height
         self.theta = -theta*np.pi/180

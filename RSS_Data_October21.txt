@@ -1,6 +1,4 @@
 "TIMESTAMP","RECORD","BattV_Min","PTemp","Baudrate","Instantanous_velocity","Average_velocity","velocity_unit","Tilt_angle_value","Flow_Direction","SNR_Instantenous","SNR_Average"
-"TS","RN","","","","","","","","","",""
-"","","Min","Smp","Smp","Smp","Smp","Smp","Smp","Smp","Smp","Smp"
 "2024-09-12 13:00:00",0,12.57,18.05,1,927,943,1,43,1,7387,7310
 "2024-09-12 14:00:00",1,12.43,20.35,1,956,995,1,44,1,7317,7235
 "2024-09-12 15:00:00",2,12.42,22.81,1,956,956,1,44,1,7273,7280
