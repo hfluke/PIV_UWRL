@@ -2,20 +2,15 @@ import numpy as np
 
 class Radar:
 
-    def __init__(self, height=3.689, theta=45):
+    def __init__(self, stage=10.33, theta=45):
+
         self.MAJOR = 24*np.pi/180
         self.MINOR = 12*np.pi/180
-# 
-        # self.cam_k = 8.973 # 9.416
-        # self.cam_h = 4.122 # 2.321
 
-        # self.cam_k = 4.122 # these points would (probably) be 
-        # self.cam_h = 8.973 # correct before the new transformation
+        self.cam_k = 0
+        self.cam_h = 9.416
 
-        self.cam_k = 0 
-        self.cam_h = 9.928
-
-        self.height = height
+        self.height = 3.7609 - (stage / 100)
         self.theta = -theta*np.pi/180
         
         self.__compute_ellipse()
