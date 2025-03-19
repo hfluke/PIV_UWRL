@@ -1,0 +1,66 @@
+Discharge Measurement Summary
+Date Measured: 2024-12-13
+
+Site Information
+Site Name; LR_WaterLab_AA
+Station Number; 
+Location; Below bridge
+
+Measurement Information
+Party; BD, BB, MC
+Boat/Motor; TBX
+Measurement Number; 
+Comments; 
+
+System Information
+System Type;RS2-RS5
+Serial Number;RS52330007
+Firmware Version;1.51
+
+System Setup
+Transducer Depth (m);0.07
+Screening Distance (m);0
+Salinity (PSS-78);0
+Magnetic Declination (deg);10.9
+
+Distance;m
+Velocity;m/s
+Area;m²
+Discharge;m³/s
+Temperature;°C
+
+Discharge Calculation Settings
+Track Reference;GGA
+Bottom Fit Type;Power Fit
+Left Method;Vertical Bank
+Depth Reference;Vertical Beam
+Top Fit Type;Power Fit
+Right Method;Vertical Bank
+Coordinate System;ENU
+
+Discharge Results
+Width (m);8.692
+Area (m²);4.77797
+Mean Speed (m/s);0.6879
+% Measured (%);46.68
+Total Q (m³/s);3.2866
+Mean Samples Per Transect;152
+Maximum Speed (m/s);1.3163
+Mean Depth (m);0.532
+Maximum Depth (m);0.758
+
+Supplemental Data
+Transect;File Name;Start Gauge Height (m);Start Gauge Height Observation Time (UTC-7);End Gauge Height (m);End Gauge Height Observation Time (UTC-7)
+
+Transect	File Name	Start Edge	Start Time (UTC-7)	Duration	Track (m)	DMG (m)	Width (m)	Area (m²)	Boat Speed (m/s)	Mean Speed (m/s)	Left Q (m³/s)	Right Q (m³/s)	Top Q (m³/s)	Middle Q (m³/s)	Bottom Q (m³/s)	Total Q (m³/s)	Moving Bed Corrected Q (m³/s)	% Measured (%)
+1	01-Transect_20241213153053	Right Bank	2024-12-13 15:40:21	00:02:07	9.134	7.119	8.719	4.78907	0.0719	0.6863	0.2387	0.0383	0.996	1.5521	0.4615	3.2867		47.22
+2	02-Transect_20241213154229	Left Bank	2024-12-13 15:42:36	00:01:46	7.776	6.941	8.541	4.79891	0.0734	0.6838	0.233	0.0201	0.9952	1.5075	0.5258	3.2816		45.94
+3	03-Transect_20241213154423	Right Bank	2024-12-13 15:44:29	00:01:18	7.72	7.056	8.656	4.76134	0.099	0.6867	0.2279	0.0059	1.0422	1.5133	0.4802	3.2696		46.28
+4	04-Transect_20241213154549	Left Bank	2024-12-13 15:45:56	00:01:46	8.033	7.039	8.639	4.72167	0.0758	0.6925	0.2241	0.0384	1.0029	1.5154	0.489	3.2698		46.34
+5	05-Transect_20241213154743	Right Bank	2024-12-13 15:47:51	00:01:40	8.13	7.015	8.615	4.74167	0.0813	0.7124	0.2161	0.0166	1.0598	1.5785	0.5068	3.3778		46.73
+6	06-Transect_20241213154932	Left Bank	2024-12-13 15:49:49	00:02:02	8.176	7.18	8.78	4.79053	0.067	0.7111	0.2082	0.0357	1.0852	1.5856	0.4918	3.4065		46.55
+7	07-Transect_20241213155152	Right Bank	2024-12-13 15:52:12	00:01:35	7.984	7.143	8.743	4.82428	0.084	0.6748	0.1498	0.0226	1.0533	1.5342	0.4953	3.2552		47.13
+8	08-Transect_20241213155348	Left Bank	2024-12-13 15:53:55	00:01:52	8.201	7.24	8.84	4.79625	0.0732	0.6558	0.164	0.0331	0.9943	1.4866	0.4673	3.1454		47.26
+
+Parameters and settings marked with a * are not constant for all files.
+Report generated using SonTek RSQ v3.1
