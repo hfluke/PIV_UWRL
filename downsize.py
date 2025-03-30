@@ -1,4 +1,4 @@
-N = 9_000_000 # 12_603_976
+N = 8_000_000 # 12_603_976
 
 # with open("UWRL_river_velocimetry_dataset.csv", "r") as f:
 #     file = f.readlines()
